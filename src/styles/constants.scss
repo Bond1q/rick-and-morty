@@ -1,0 +1,18 @@
+$bgColor: #24282F;
+$textColor: #f5f5f5;
+$mainTitleColor: #12B0C9;
+$activeLinkColor: #FF9800;
+$activeElementColor:#ffffff;
+$deadCharacterColor: #D63D2E;
+$aliveCharacterColor: #00B100;
+$unknownCharacterColor:#9E9E9E;
+
+
+@mixin flexRow($jC:space-between, $aI:center, $aS:center, $w:100%) {
+	display: flex;
+	justify-content: $jC;
+	align-items: $aI;
+	align-self: $aS;
+	width: $w;
+	margin: 0 auto;
+}

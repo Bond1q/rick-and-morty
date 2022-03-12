@@ -1,7 +1,5 @@
 import React from 'react';
 import '../styles/header.scss'
-import Rick from '../assets/images/rick.png'
-import Morty from '../assets/images/morty.png'
 import { ReactComponent as Logo } from '../assets/images/logo.svg';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as BgTitle } from '../assets/images/bgTitle.svg';
@@ -15,10 +13,10 @@ const Header = () => {
 					<Logo className='logo' width={50} />
 				</NavLink>
 				<div className="menu">
-					<NavLink to='/characters' style={({ isActive }) => ({ fontWeight: isActive ? 500 : 400 })}>
+					<NavLink to='/characters' style={({ isActive }) => ({ fontWeight: isActive ? 700 : 500 })}>
 						Characters
 					</NavLink>
-					<NavLink to='/episods' style={({ isActive }) => ({ fontWeight: isActive ? 500 : 400 })}>
+					<NavLink to='/episods' style={({ isActive }) => ({ fontWeight: isActive ? 700 : 500 })}>
 						Episods
 					</NavLink>
 				</div>
@@ -28,7 +26,7 @@ const Header = () => {
 				<div className="titleText">
 					The Rick and Morty Wiki
 				</div>
-				<BgTitle className='bgTitle' width={50} />
+				<BgTitle className='bgTitle' width={60} />
 
 			</div>
 		</div >

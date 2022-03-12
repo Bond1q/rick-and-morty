@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route, Navigate, Router } from 'react-router-dom'
 import { routes } from './../routes/index';
-// import Home from './../Pages/Home';
-// import Episods from './../Pages/Episods';
+// import HomePage from './../Pages/HomePage';
+// import EpisodsPage from './../Pages/EpisodsPage';
 import Header from './Header';
 
 const AppRoutes = () => {

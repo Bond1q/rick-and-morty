@@ -1,0 +1,46 @@
+@use 'constants.scss'as *;
+
+
+.charactersPage {
+	height: 1000px;
+
+	.mainTitle {
+		font-size: 50px;
+		font-weight: 900;
+		letter-spacing: 0em;
+		text-align: center;
+		margin-top: 65px;
+		text-shadow: 0px 6px 4px #00000040;
+
+	}
+
+	.menu {
+		@include flexRow($w:500px);
+		margin-top: 30px;
+		// margin-left: 500px;
+
+		.filters {
+
+			.title {
+
+				@include flexRow();
+				cursor: pointer;
+				position: relative;
+
+				.titleText {
+					font-size: 25px;
+					font-weight: 600;
+					letter-spacing: 0.03em;
+					position: relative;
+					margin-right: 6px;
+				}
+			}
+
+		}
+
+	}
+
+	.cards {
+		@include cardsRows;
+	}
+}

@@ -8,7 +8,6 @@
 		padding: 30px 50px 50px 50px;
 
 		.menu {
-			// @include flexRow();
 
 			& a:first-of-type {
 				margin-right: 42px;
@@ -17,6 +16,7 @@
 			a {
 				color: $bgColor;
 				font-size: 20px;
+
 
 				&:hover {
 					color: $activeLinkColor;

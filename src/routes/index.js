@@ -1,21 +1,21 @@
-import Characters from "../Pages/Characters";
-import Episods from './../Pages/Episods';
-import Home from './../Pages/Home';
+import CharactersPage from "../Pages/CharactersPage";
+import EpisodsPage from './../Pages/EpisodsPage';
+import HomePage from './../Pages/HomePage';
 
 export const routes = [
 	{
 		path: '/characters',
 		exact: true,
-		component: <Characters />
+		component: <CharactersPage />
 	},
 	{
 		path: '/episods',
 		exact: true,
-		component: <Episods />
+		component: <EpisodsPage />
 	},
 	{
 		path: '/home',
 		exact: true,
-		component: <Home />
+		component: <HomePage />
 	},
 ]

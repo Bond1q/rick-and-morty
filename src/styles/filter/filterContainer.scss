@@ -1,0 +1,105 @@
+@use '../constants.scss'as *;
+
+.filterContainer {
+	animation: upOut 300ms ease-in-out forwards;
+	z-index: 5;
+	border-radius: 7px;
+	box-shadow: 0px 2px 5px 5px #1d1e20;
+	position: absolute;
+	background: $textColor;
+	width: 200px;
+	left: calc(50% - 296px);
+	perspective: 1000px;
+	padding: 10px 15px;
+	height: 240px;
+	overflow-y: scroll;
+
+	&::-webkit-scrollbar {
+		width: 14px;
+	}
+
+	&::-webkit-scrollbar-track {
+		border-top-right-radius: 7px;
+		border-bottom-right-radius: 7px;
+		background: #dcdcdc;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #888;
+		border-radius: 7px;
+		background-clip: content-box;
+		border: 2px solid transparent;
+
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background: #24282fcd;
+		background-clip: content-box;
+	}
+
+	.filterBtn {
+		text-align: center;
+
+
+		button {
+			cursor: pointer;
+			width: 125px;
+			height: 30px;
+			border: 2px solid $bgColor;
+			border-radius: 7px;
+			color: $bgColor;
+			line-height: 0px;
+			// background: #24282F;
+
+
+
+			&:hover {
+
+				font-weight: 600;
+				border: 2.5px solid #404753;
+				font-size: 16px;
+
+
+			}
+
+			// font-size: 16px;
+		}
+	}
+}
+
+.isFilterVisible {
+	display: block;
+	animation: downOut 300ms ease-in-out forwards;
+}
+
+@keyframes upOut {
+	0% {
+		opacity: 1;
+	}
+
+	70% {
+		opacity: 0;
+
+	}
+
+	100% {
+		opacity: 0;
+		transform: transLateY(-15px);
+		visibility: hidden;
+	}
+}
+
+@keyframes downOut {
+	0% {
+		transform: transLateY(-15px);
+		opacity: 0;
+	}
+
+
+
+	100% {
+		transform: transLateY(0px);
+		opacity: 1;
+
+	}
+}

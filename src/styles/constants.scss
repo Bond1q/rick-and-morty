@@ -6,6 +6,9 @@ $activeElementColor:#ffffff;
 $deadCharacterColor: #D63D2E;
 $aliveCharacterColor: #00B100;
 $unknownCharacterColor:#9E9E9E;
+$cardColor:#3C3E44;
+$cardTitleColor: #B9B9B9;
+
 
 
 @mixin flexRow($jC:space-between, $aI:center, $aS:center, $w:100%) {
@@ -15,4 +18,26 @@ $unknownCharacterColor:#9E9E9E;
 	align-self: $aS;
 	width: $w;
 	margin: 0 auto;
+}
+
+@mixin cardTitleStyle {
+	font-size: 16px;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+	color: $cardTitleColor;
+	margin-bottom: 2px;
+
+}
+
+@mixin cardsRows {
+	margin-top: 80px;
+	margin-bottom: 80px;
+	display: flex;
+	-webkit-box-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	align-items: center;
+	flex-wrap: wrap;
+	max-width: 1920px;
+
 }

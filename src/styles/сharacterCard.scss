@@ -1,0 +1,118 @@
+@use 'constants.scss'as *;
+
+.сharacterCard {
+	display: flex;
+	background: $cardColor;
+	width: 600px;
+	height: 220px;
+	border-radius: 15px;
+	margin: 13px;
+
+	box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+
+	.side1 {
+		width: 220px;
+
+		img {
+			cursor: pointer;
+			border-radius: 15px 0 0 15px;
+			object-position: center center;
+			object-fit: cover;
+			width: 220px;
+			opacity: 1;
+			transition: opacity 0.5s ease 0s;
+		}
+
+	}
+
+	.side2 {
+		padding: 15px 12px 20px 15px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		.nameStatus {
+
+			.name {
+				font-size: 23px;
+				font-weight: 900;
+				letter-spacing: 0.03em;
+				line-height: 23px;
+				margin-bottom: 5px;
+			}
+
+			.status {
+				display: flex;
+				align-items: center;
+				font-weight: 600;
+				letter-spacing: 0.03em;
+				font-size: 16px;
+
+				.dot {
+					width: 10px;
+					height: 10px;
+					// background: red;
+					border-radius: 50%;
+					margin-right: 4px;
+				}
+			}
+		}
+
+		.origin {
+			justify-content: center;
+
+			.title {
+				@include cardTitleStyle;
+
+			}
+
+			.originName {
+				font-weight: 400;
+				letter-spacing: 0.03em;
+
+			}
+		}
+
+		.firstSeen {
+			// padding-bottom: 2px;
+
+			.title {
+				@include cardTitleStyle;
+
+			}
+
+			.episodTitle:hover {
+				cursor: pointer;
+
+				color: $activeLinkColor;
+			}
+		}
+	}
+}
+
+.deadCharacter {
+	background-color: $deadCharacterColor;
+}
+
+.aliveCharacter {
+	background-color: $aliveCharacterColor;
+}
+
+.unknownCharacter {
+	background-color: $unknownCharacterColor;
+}
+
+.deadCharacterHover:hover {
+	color: $deadCharacterColor;
+	cursor: pointer;
+}
+
+.aliveCharacterHover:hover {
+	color: $aliveCharacterColor;
+	cursor: pointer;
+}
+
+.unknownCharacterHover:hover {
+	color: $unknownCharacterColor;
+	cursor: pointer;
+}

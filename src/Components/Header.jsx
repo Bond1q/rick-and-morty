@@ -13,11 +13,11 @@ const Header = () => {
 					<Logo className='logo' width={50} />
 				</NavLink>
 				<div className="menu">
-					<NavLink to='/characters' style={({ isActive }) => ({ fontWeight: isActive ? 700 : 500 })}>
+					<NavLink to="/characters/page=1?gender=all&status=all" style={({ isActive }) => ({ fontWeight: isActive ? 700 : 500 })}>
 						Characters
 					</NavLink>
-					<NavLink to='/episods' style={({ isActive }) => ({ fontWeight: isActive ? 700 : 500 })}>
-						Episods
+					<NavLink to='/seasons' style={({ isActive }) => ({ fontWeight: isActive ? 700 : 500 })}>
+						Seasons
 					</NavLink>
 				</div>
 			</div>

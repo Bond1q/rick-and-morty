@@ -3,12 +3,17 @@ import propTypes from 'prop-types';
 import FilterBlockItem from './FilterBlockItem';
 import '../../styles/filter/filterBlock.scss'
 
-const FilterBlock = ({ blockName, blockItems }) => {
+const FilterBlock = React.memo(({ blockName, blockItems, setActiveFilterChanged, setIsBtnActive }) => {
+	const changeActiveBlockItem = (blockItem) => {
+		setActiveFilterChanged(blockName, blockItem)
+	}
 	const items = blockItems.map((item, index) => {
 		return <FilterBlockItem
 			key={index}
 			isActive={item.isActive}
 			itemName={item.itemName}
+			changeActiveBlockItem={changeActiveBlockItem}
+			setIsBtnActive={setIsBtnActive}
 		/>
 	})
 	return (
@@ -21,7 +26,7 @@ const FilterBlock = ({ blockName, blockItems }) => {
 			</div>
 		</div>
 	);
-};
+});
 
 
 FilterBlock.propTypes = {
@@ -31,6 +36,8 @@ FilterBlock.propTypes = {
 			isActive: propTypes.bool,
 			itemName: propTypes.string
 		})),
+	setFilterChanged: propTypes.func,
+	setIsBtnActive: propTypes.func
 }
 
 export default FilterBlock;

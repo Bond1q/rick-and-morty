@@ -2,22 +2,13 @@
 
 
 .charactersPage {
-	height: 1000px;
-
 	.mainTitle {
-		font-size: 50px;
-		font-weight: 900;
-		letter-spacing: 0em;
-		text-align: center;
-		margin-top: 65px;
-		text-shadow: 0px 6px 4px #00000040;
-
+		@include mainTitle
 	}
 
 	.menu {
 		@include flexRow($w:500px);
 		margin-top: 30px;
-		// margin-left: 500px;
 
 		.filters {
 

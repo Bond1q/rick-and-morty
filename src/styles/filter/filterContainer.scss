@@ -1,10 +1,12 @@
 @use '../constants.scss'as *;
 
+
+
 .filterContainer {
 	animation: upOut 300ms ease-in-out forwards;
 	z-index: 5;
 	border-radius: 7px;
-	box-shadow: 0px 2px 5px 5px #1d1e20;
+	box-shadow: 0px 2px 5px 2px #1d1e20;
 	position: absolute;
 	background: $textColor;
 	width: 200px;
@@ -13,6 +15,7 @@
 	padding: 10px 15px;
 	height: 240px;
 	overflow-y: scroll;
+	// display: none;
 
 	&::-webkit-scrollbar {
 		width: 14px;
@@ -37,32 +40,31 @@
 		background-clip: content-box;
 	}
 
+
+
 	.filterBtn {
 		text-align: center;
 
-
 		button {
-			cursor: pointer;
+			cursor: default;
 			width: 125px;
 			height: 30px;
 			border: 2px solid $bgColor;
 			border-radius: 7px;
 			color: $bgColor;
 			line-height: 0px;
-			// background: #24282F;
+		}
+	}
 
-
+	.isBtnActive {
+		button {
+			cursor: pointer;
 
 			&:hover {
-
 				font-weight: 600;
-				border: 2.5px solid #404753;
+				border: 2.5px solid #232831;
 				font-size: 16px;
-
-
 			}
-
-			// font-size: 16px;
 		}
 	}
 }
@@ -70,6 +72,7 @@
 .isFilterVisible {
 	display: block;
 	animation: downOut 300ms ease-in-out forwards;
+
 }
 
 @keyframes upOut {
@@ -89,6 +92,9 @@
 	}
 }
 
+
+
+
 @keyframes downOut {
 	0% {
 		transform: transLateY(-15px);
@@ -103,3 +109,28 @@
 
 	}
 }
+
+.notVisib {
+	visibility: hidden;
+}
+
+// .notVisib {
+// 	animation: noVisible 300ms ease-in-out 1 forwards;
+// }
+
+// @keyframes noVisible {
+// 	0% {
+// 		opacity: 0;
+// 	}
+
+// 	70% {
+// 		opacity: 0;
+
+// 	}
+
+// 	100% {
+// 		opacity: 0;
+// 		transform: transLateY(-15px);
+// 		visibility: hidden;
+// 	}
+// }

@@ -2,7 +2,6 @@
 
 .filterBlock {
 	color: $bgColor;
-	// cursor: pointer;
 	margin-bottom: 15px;
 
 	.blockName {
@@ -10,7 +9,7 @@
 		font-size: 18px;
 		font-weight: 600;
 		margin-bottom: 8px;
-
+		text-transform: capitalize;
 	}
 
 	.filterBlockItem {
@@ -21,9 +20,7 @@
 
 		&:hover {
 			.itemName {
-				// color: #000000;
 				font-weight: 600;
-
 			}
 
 			.checkBox {
@@ -36,9 +33,7 @@
 			border-radius: 100%;
 			width: 10px;
 			height: 10px;
-			// background: #000;
 			border: 1.75px solid $bgColor;
-
 			margin-right: 10px;
 		}
 

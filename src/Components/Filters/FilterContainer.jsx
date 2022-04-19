@@ -1,28 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import FilterBlock from './FilterBlock';
 import cn from 'classnames';
 import '../../styles/filter/filterContainer.scss'
-import { preventClosing } from './../../assets/funcs/preventClosing';
-const FilterContainer = ({ filters, isFilterTabActive, setIsFilterTabActive }) => {
+import { preventMainFunc } from './../../assets/funcs/preventMainFunc';
+const FilterContainer = React.memo(({ filters, isFilterTabActive, setIsFilterTabActive, onFilterClicked, setActiveFilterChanged }) => {
+	const [isBtnActive, setIsBtnActive] = React.useState(false)
+	const [notVisible, setNotVisible] = React.useState(true)
 	const blocks = filters.map((block, index) => {
 		return <FilterBlock
 			key={index}
 			blockName={block.blockName}
 			blockItems={block.blockItems}
+			setActiveFilterChanged={setActiveFilterChanged}
+			setIsBtnActive={setIsBtnActive}
 		/>
 	})
 
+	const onFilterBtnCkicked = () => {
+		if (isBtnActive) {
+			onFilterClicked(true)
+			setIsBtnActive(false)
+		}
+		setIsFilterTabActive(false)
 
+	}
+	React.useEffect(() => {
+		setTimeout(() => {
+			setNotVisible(false)
+		}, 500);
+	})
 	return (
-		<div onClick={preventClosing} className={cn('filterContainer', { isFilterVisible: isFilterTabActive })}>
+		<div onClick={preventMainFunc} className={cn('filterContainer', { isFilterVisible: isFilterTabActive }, { notVisib: notVisible })}>
 			<div>{blocks}</div>
-			<div className={cn("filterBtn")}>
+			<div onClick={onFilterBtnCkicked} className={cn("filterBtn", { isBtnActive: isBtnActive })}>
 				<button>Filter</button>
 			</div>
 		</div>
 	);
-};
+});
 
 FilterContainer.propTypes = {
 	filters: propTypes.arrayOf(propTypes.shape(
@@ -34,6 +50,8 @@ FilterContainer.propTypes = {
 					itemName: propTypes.string
 				}))
 		})).isRequired,
+	setActiveFilterChanged: propTypes.func.isRequired,
+	onFilterClicked: propTypes.func.isRequired,
 	isFilterTabActive: propTypes.bool.isRequired,
 	setIsFilterTabActive: propTypes.func.isRequired,
 

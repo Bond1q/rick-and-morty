@@ -47,6 +47,7 @@
 				font-weight: 600;
 				letter-spacing: 0.03em;
 				font-size: 16px;
+				text-transform: capitalize;
 
 				.dot {
 					width: 10px;
@@ -84,35 +85,14 @@
 			.episodTitle:hover {
 				cursor: pointer;
 
-				color: $activeLinkColor;
+				span {
+					color: $activeLinkColor;
+				}
+			}
+
+			.episodTitle span:first-child {
+				margin-right: 20px;
 			}
 		}
 	}
-}
-
-.deadCharacter {
-	background-color: $deadCharacterColor;
-}
-
-.aliveCharacter {
-	background-color: $aliveCharacterColor;
-}
-
-.unknownCharacter {
-	background-color: $unknownCharacterColor;
-}
-
-.deadCharacterHover:hover {
-	color: $deadCharacterColor;
-	cursor: pointer;
-}
-
-.aliveCharacterHover:hover {
-	color: $aliveCharacterColor;
-	cursor: pointer;
-}
-
-.unknownCharacterHover:hover {
-	color: $unknownCharacterColor;
-	cursor: pointer;
 }

@@ -2,12 +2,20 @@ import React from 'react';
 import propTypes from 'prop-types';
 import '../styles/сharacterCard.scss'
 import cn from 'classnames';
-
-const CharacterCard = ({ name, status, species, origin, season, episod, episodTitle, img }) => {
-
+import { useNavigate } from 'react-router-dom';
+import { preventMainFunc } from './../assets/funcs/preventMainFunc';
+import setColorByStatus from '../assets/funcs/setColorByStatus';
+const CharacterCard = React.memo(({ name, status, species, origin, gender, season, episode, id, img }) => {
 	const [activeColor, activeHoverColor] = setColorByStatus(status)
+	const urlChange = useNavigate()
+	const setCharacterIdInUrl = () => {
+		urlChange('/characters/' + id);
+	}
+	const onEpisodeClick = (e) => {
+		preventMainFunc(e)
+	}
 	return (
-		<div className='сharacterCard'>
+		<div onClick={setCharacterIdInUrl} className='сharacterCard'>
 			<div className="side1">
 				<img src={img} />
 			</div>
@@ -16,7 +24,7 @@ const CharacterCard = ({ name, status, species, origin, season, episod, episodTi
 					<div className={cn("name", activeHoverColor)}>{name}</div>
 					<div className="status">
 						<div className={cn('dot', activeColor)}></div>
-						{status} - {species}
+						{status} - {species} - {gender}
 					</div>
 				</div>
 				<div className="origin">
@@ -25,37 +33,30 @@ const CharacterCard = ({ name, status, species, origin, season, episod, episodTi
 					</div>
 					<div className="originName">{origin}</div>
 				</div>
-				<div className="firstSeen">
+				<div onClick={onEpisodeClick} className="firstSeen">
 					<div className="title">First seen in:</div>
 					<div className="episodTitle">
-						{episodTitle}
+						<span>Season: {season}</span> <span>Episode: {episode}</span>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
-};
+});
 
 
 CharacterCard.propTypes = {
+	id: propTypes.number.isRequired,
 	name: propTypes.string.isRequired,
+	gender: propTypes.string.isRequired,
 	status: propTypes.string.isRequired,
 	species: propTypes.string.isRequired,
 	origin: propTypes.string.isRequired,
 	season: propTypes.number.isRequired,
-	episod: propTypes.number.isRequired,
-	episodTitle: propTypes.string.isRequired,
+	episode: propTypes.number.isRequired,
 	img: propTypes.string.isRequired
 }
 
-const setColorByStatus = (status) => {
-	if (status === 'Alive') {
-		return ['aliveCharacter', 'aliveCharacterHover']
-	} else if (status === 'Dead') {
-		return ['deadCharacter', 'deadCharacterHover']
-	} else {
-		return ['unknownCharacter', 'unknownCharacterHover']
-	}
-}
+
 
 export default CharacterCard;

@@ -4,7 +4,7 @@ $mainTitleColor: #12B0C9;
 $activeLinkColor: #FF9800;
 $activeElementColor:#ffffff;
 $deadCharacterColor: #D63D2E;
-$aliveCharacterColor: #00B100;
+$aliveCharacterColor: #00b100db;
 $unknownCharacterColor:#9E9E9E;
 $cardColor:#3C3E44;
 $cardTitleColor: #B9B9B9;
@@ -39,5 +39,42 @@ $cardTitleColor: #B9B9B9;
 	align-items: center;
 	flex-wrap: wrap;
 	max-width: 1920px;
+}
 
+@mixin mainTitle {
+	font-size: 50px;
+	font-weight: 900;
+	letter-spacing: 0em;
+	text-align: center;
+	margin-top: 50px;
+	letter-spacing: 0.02em;
+
+	text-shadow: 0px 4px 4px #00000040;
+}
+
+.deadCharacter {
+	background-color: $deadCharacterColor;
+}
+
+.aliveCharacter {
+	background-color: $aliveCharacterColor;
+}
+
+.unknownCharacter {
+	background-color: $unknownCharacterColor;
+}
+
+.deadCharacterHover:hover {
+	color: $deadCharacterColor;
+	cursor: pointer;
+}
+
+.aliveCharacterHover:hover {
+	color: $aliveCharacterColor;
+	cursor: pointer;
+}
+
+.unknownCharacterHover:hover {
+	color: $unknownCharacterColor;
+	cursor: pointer;
 }

@@ -1,0 +1,34 @@
+@use 'constants.scss'as *;
+
+.episodePage {
+	.mainTitle {
+		@include mainTitle;
+		word-spacing: 0.08em;
+	}
+
+	.subtitle {
+		font-size: 25px;
+		font-weight: 900;
+		letter-spacing: 0em;
+		text-align: center;
+		margin-top: 20px;
+		letter-spacing: 0.02em;
+		display: flex;
+		justify-content: center;
+
+		.seasIndex {
+			font-size: inherit;
+
+			margin-right: 35px;
+		}
+
+		.episIndex {
+			font-size: inherit;
+			// margin-right: 35px;
+		}
+	}
+
+	.cards {
+		@include cardsRows;
+	}
+}

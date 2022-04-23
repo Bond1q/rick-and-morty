@@ -3,10 +3,16 @@ import Episode from './Episode';
 import '../../styles/seasonBlock.scss'
 import propTypes from 'prop-types';
 
-const SeasonBlock = ({ seasonIndex, episodes }) => {
+const SeasonBlock = ({ seasonIndex, episodes, urlChange }) => {
 
 	const episodesToProps = episodes.map((episode) => {
-		return <Episode index={episode.episodeIndex} title={episode.title} key={episode.episodeIndex} />
+		return <Episode
+			id={episode.id}
+			index={episode.episodeIndex}
+			title={episode.title}
+			key={episode.episodeIndex}
+			urlChange={urlChange}
+		/>
 	})
 	return (
 		<div className='seasonBlock'>
@@ -24,9 +30,11 @@ SeasonBlock.propTypes = {
 	episodes: propTypes.arrayOf(
 		propTypes.shape({
 			episodeIndex: propTypes.number,
-			title: propTypes.string
+			title: propTypes.string,
+			id: propTypes.number
 		})
-	)
+	),
+	urlChange: propTypes.func
 }
 
 export default SeasonBlock;

@@ -22,13 +22,13 @@ export const requestCharacters = async (page, gender = 'all', status = 'all', ch
 	}
 }
 
-export const requestRandomCharacters = async (ids) => {
+export const requestCharactersByIds = async (ids) => {
 	const url = 'https://rickandmortyapi.com/api/character/' + ids.join();
 	try {
 		const result = await axios.get(url)
 		return result
 	} catch (error) {
-		console.error(error, "Function:requestRandomCharacters")
+		console.error(error, "Function:requestCharactersByIds")
 	}
 }
 
@@ -57,5 +57,17 @@ export const requestSeasons = async () => {
 		return results
 	} catch (error) {
 		console.error(error, "Function: requestSeasons")
+	}
+}
+
+
+export const requestEpisode = async (episodeId) => {
+	const url = `https://rickandmortyapi.com/api/episode/${episodeId}`
+	try {
+		const res = await axios.get(url)
+		return res
+	} catch (error) {
+		console.error(error, "Function: requestEpisode")
+
 	}
 }

@@ -1,7 +1,8 @@
 import CharactersPage from "../Pages/CharactersPage";
 import SeasonsPage from './../Pages/SeasonsPage';
 import HomePage from './../Pages/HomePage';
-import CharacterPage from "../Pages/CharacterPage";
+import SingleCharacterPage from "../Pages/SingleCharacterPage";
+import SingleEpisodePage from "../Pages/SingleEpisodePage";
 
 export const routes = [
 	// {
@@ -28,6 +29,11 @@ export const routes = [
 	{
 		path: '/characters/:id',
 		exect: true,
-		component: <CharacterPage />
+		component: <SingleCharacterPage />
+	},
+	{
+		path: '/seasons/:id',
+		exect: true,
+		component: <SingleEpisodePage />
 	}
 ]

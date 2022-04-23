@@ -2,17 +2,24 @@ import React from 'react';
 import propTypes from 'prop-types';
 import '../styles/сharacterCard.scss'
 import cn from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { preventMainFunc } from './../assets/funcs/preventMainFunc';
 import setColorByStatus from '../assets/funcs/setColorByStatus';
-const CharacterCard = React.memo(({ name, status, species, origin, gender, season, episode, id, img }) => {
+const CharacterCard = React.memo(({ name, status, species, origin, gender, season, episode, id, img, episodeIndex }) => {
+	console.log('CharacterCard');
 	const [activeColor, activeHoverColor] = setColorByStatus(status)
 	const urlChange = useNavigate()
+	const url = useLocation().pathname
 	const setCharacterIdInUrl = () => {
 		urlChange('/characters/' + id);
 	}
 	const onEpisodeClick = (e) => {
 		preventMainFunc(e)
+		if (!url.includes('seasons')) {
+			urlChange('/seasons/' + episodeIndex)
+		} else if (+(url.split("/").reverse()[0]) !== episodeIndex) {
+			urlChange('/seasons/' + episodeIndex)
+		}
 	}
 	return (
 		<div onClick={setCharacterIdInUrl} className='сharacterCard'>
@@ -54,7 +61,8 @@ CharacterCard.propTypes = {
 	origin: propTypes.string.isRequired,
 	season: propTypes.number.isRequired,
 	episode: propTypes.number.isRequired,
-	img: propTypes.string.isRequired
+	img: propTypes.string.isRequired,
+	episodeIndex: propTypes.number
 }
 
 

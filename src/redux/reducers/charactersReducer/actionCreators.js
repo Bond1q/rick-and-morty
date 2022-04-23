@@ -1,4 +1,4 @@
-import { requestCharacters, requestRandomCharacters, requestSingleCharacter } from '../../../api/api';
+import { requestCharacters, requestCharactersByIds, requestSingleCharacter } from '../../../api/api';
 import getRandomNums from '../../../assets/funcs/getRandomNums';
 import {
 	GET_CHARACTERS, SET_CHARACTERS,
@@ -29,11 +29,11 @@ export const getCharacters = (page, gender = 'all', status = 'all', name = '') =
 	}
 }
 
-export const getRandomCharacters = (count) => {
+export const getCharactersByIds = (ids) => {
 	return async dispatch => {
 		dispatch(toggleIsCharactersReducerLoading(true))
-		const randNumbers = getRandomNums(count)
-		const res = await requestRandomCharacters(randNumbers);
+		// const randNumbers = getRandomNums(count)
+		const res = await requestCharactersByIds(ids);
 		if (res.status === 200) {
 			dispatch(toggleIsCharactersReducerLoading(false))
 			return dispatch(setCharacters(res.data, 1))

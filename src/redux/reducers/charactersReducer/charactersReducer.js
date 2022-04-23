@@ -40,6 +40,7 @@ const initialState = {
 		species: '',
 		origin: '',
 		type: '',
+		gender: '',
 		location: '',
 		image: '',
 		episode: []

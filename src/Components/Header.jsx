@@ -13,7 +13,7 @@ const Header = () => {
 					<Logo className='logo' width={50} />
 				</NavLink>
 				<div className="menu">
-					<NavLink to="/characters/page=1?gender=all&status=all" style={({ isActive }) => ({ fontWeight: isActive ? 700 : 500 })}>
+					<NavLink to="/characters" style={({ isActive }) => ({ fontWeight: isActive ? 700 : 500 })}>
 						Characters
 					</NavLink>
 					<NavLink to='/seasons' style={({ isActive }) => ({ fontWeight: isActive ? 700 : 500 })}>

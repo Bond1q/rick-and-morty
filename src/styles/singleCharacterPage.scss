@@ -9,6 +9,8 @@
 		@include flexRow($jC:center);
 
 		.side1 {
+			animation: appearEffect 300ms ease-in-out forwards;
+
 			margin-right: 50px;
 			width: 300px;
 			height: 300px;
@@ -23,7 +25,7 @@
 
 		.side2 {
 			span {
-				font-size: 23px;
+				font-size: 20px;
 
 
 			}
@@ -55,6 +57,7 @@
 	.episodes {
 		margin-top: 50px;
 
+
 		.title {
 			font-size: 30px;
 			margin-bottom: 20px;
@@ -77,6 +80,11 @@
 		}
 
 		.episode {
+			&:hover {
+				cursor: pointer;
+				color: $activeLinkColor;
+			}
+
 			font-size: 23px;
 			display: flex;
 			// justify-content: space-between;
@@ -86,6 +94,7 @@
 			margin-top: 10px;
 
 			.epis {
+				color: inherit;
 				font-size: 23px;
 				text-align: left;
 				margin-left: 50px;
@@ -95,11 +104,14 @@
 
 				div {
 					font-size: 23px;
+					color: inherit;
 
 				}
 			}
 
 			.seas {
+				color: inherit;
+
 				font-size: 23px;
 				// margin-right: 25px;
 				text-align: right;
@@ -112,4 +124,14 @@
 
 	}
 
+}
+
+@keyframes appearEffect {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }

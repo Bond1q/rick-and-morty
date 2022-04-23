@@ -9,6 +9,7 @@
 	margin: 13px;
 
 	box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+	animation: appearEffect 300ms ease-in-out forwards;
 
 	.side1 {
 		width: 220px;
@@ -20,7 +21,7 @@
 			object-fit: cover;
 			width: 220px;
 			opacity: 1;
-			transition: opacity 0.5s ease 0s;
+			transition: opacity 0.5s ease 0.5s;
 		}
 
 	}
@@ -94,5 +95,15 @@
 				margin-right: 20px;
 			}
 		}
+	}
+}
+
+@keyframes appearEffect {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
 	}
 }

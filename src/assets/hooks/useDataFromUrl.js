@@ -1,10 +1,9 @@
-import { useLocation } from "react-router-dom";
-import React from "react";
+import { useMemo } from "react";
 
 const useDataFromUrl = (urlParams = []) => {
 	const href = window.location.href
 	const url = new URL(href)
-	const dataFromUrl = React.useMemo(() => {
+	const dataFromUrl = useMemo(() => {
 		const returnData = []
 		returnData.push(+(url.pathname.split("=")[1]) || 1)
 		if (urlParams.length !== 0) {
@@ -13,7 +12,6 @@ const useDataFromUrl = (urlParams = []) => {
 			})
 		}
 		return returnData
-
 	}, [href])
 	return dataFromUrl
 }

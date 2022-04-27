@@ -22,12 +22,10 @@ const Header = () => {
 				</div>
 			</div>
 			<div className="title">
-
 				<div className="titleText">
 					The Rick and Morty Wiki
 				</div>
 				<BgTitle className='bgTitle' width={60} />
-
 			</div>
 		</div >
 	);

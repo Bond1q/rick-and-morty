@@ -1,5 +1,5 @@
 const getDataFromFilters = (filters) => {
-	const activeFilters = [], filterToProps = [];
+	const filterToProps = [];
 	let activeGender, activeStatus;
 	for (let property in filters) {
 		filterToProps.push({

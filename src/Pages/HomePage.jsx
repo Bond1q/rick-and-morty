@@ -5,7 +5,6 @@ import { getCharactersByIds } from '../redux/reducers/charactersReducer/actionCr
 import charactersCardsList from '../assets/funcs/charactersCardsList';
 import Loader from '../Components/Loader';
 import getRandomNums from '../assets/funcs/getRandomNums';
-import { requestEpisode } from './../api/api';
 const HomePage = () => {
 	const [characters, isLoading] = useSelector(({ charactersReducer }) => {
 		return [charactersReducer.characters, charactersReducer.isLoading]

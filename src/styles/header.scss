@@ -58,3 +58,31 @@
 		}
 	}
 }
+
+@media screen and (max-width: 500px) {
+	.header {
+		.bigHeaderRow {
+			padding: 30px;
+			padding-bottom: 35px;
+
+			.menu {
+				& a:first-of-type {
+					margin-right: 40px;
+				}
+			}
+		}
+
+		.title {
+			.titleText {
+				font-size: 45px;
+				word-spacing: 0.08em;
+			}
+
+			.bgTitle {
+				left: calc(50% - 100px);
+				top: -18px;
+				width: 200px;
+			}
+		}
+	}
+}

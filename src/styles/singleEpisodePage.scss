@@ -16,6 +16,11 @@
 		display: flex;
 		justify-content: center;
 
+		@media screen and (max-width: 500px) {
+			font-size: 22px;
+
+		}
+
 		.seasIndex {
 			font-size: inherit;
 

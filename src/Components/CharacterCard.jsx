@@ -3,24 +3,22 @@ import propTypes from 'prop-types';
 import '../styles/сharacterCard.scss'
 import cn from 'classnames';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { preventMainFunc } from './../assets/funcs/preventMainFunc';
 import setColorByStatus from '../assets/funcs/setColorByStatus';
+import { onEpisodeClick } from './../assets/funcs/onEpisodeClick';
 const CharacterCard = React.memo(({ name, status, species, origin, gender, season, episode, id, img, episodeIndex }) => {
-	console.log('CharacterCard');
 	const [activeColor, activeHoverColor] = setColorByStatus(status)
 	const urlChange = useNavigate()
 	const url = useLocation().pathname
 	const setCharacterIdInUrl = () => {
 		urlChange('/characters/' + id);
 	}
-	const onEpisodeClick = (e) => {
-		preventMainFunc(e)
-		if (!url.includes('seasons')) {
-			urlChange('/seasons/' + episodeIndex)
-		} else if (+(url.split("/").reverse()[0]) !== episodeIndex) {
-			urlChange('/seasons/' + episodeIndex)
+	const isLinkActive = () => {
+		if (!url.includes('seasons') || +(url.split("/").reverse()[0]) !== episodeIndex) {
+			return true
 		}
+		return false
 	}
+
 	return (
 		<div onClick={setCharacterIdInUrl} className='сharacterCard'>
 			<div className="side1">
@@ -40,10 +38,10 @@ const CharacterCard = React.memo(({ name, status, species, origin, gender, seaso
 					</div>
 					<div className="originName">{origin}</div>
 				</div>
-				<div onClick={onEpisodeClick} className="firstSeen">
+				<div onClick={(e) => onEpisodeClick(episodeIndex, urlChange, url, e)} className="firstSeen">
 					<div className="title">First seen in:</div>
-					<div className="episodTitle">
-						<span>Season: {season}</span> <span>Episode: {episode}</span>
+					<div className={cn("episodTitle", { isNotSpanActive: !isLinkActive() })}>
+						<span >Season: {season}</span> <span>Episode: {episode}</span>
 					</div>
 				</div>
 			</div>

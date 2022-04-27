@@ -15,7 +15,11 @@
 	padding: 10px 15px;
 	height: 240px;
 	overflow-y: scroll;
-	// display: none;
+
+	@media screen and (max-width: 500px) {
+		left: 10px;
+
+	}
 
 	&::-webkit-scrollbar {
 		width: 14px;
@@ -113,24 +117,3 @@
 .notVisib {
 	visibility: hidden;
 }
-
-// .notVisib {
-// 	animation: noVisible 300ms ease-in-out 1 forwards;
-// }
-
-// @keyframes noVisible {
-// 	0% {
-// 		opacity: 0;
-// 	}
-
-// 	70% {
-// 		opacity: 0;
-
-// 	}
-
-// 	100% {
-// 		opacity: 0;
-// 		transform: transLateY(-15px);
-// 		visibility: hidden;
-// 	}
-// }

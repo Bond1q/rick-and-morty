@@ -1,8 +1,9 @@
 import React from 'react';
 import cn from 'classnames';
-import { usePagination, DOTS } from '../assets/hooks/usePagination';
+import { usePagination } from '../assets/hooks/usePagination';
 import '../styles/pagination.scss'
 import propTypes from 'prop-types';
+import * as constants from '../constants'
 const Pagination = React.memo(({ onPageChange, totalPageCount, siblingCount = 1, currentPage }) => {
 	const paginationRange = usePagination({ currentPage, totalPageCount, siblingCount })
 	if (currentPage === 0 || paginationRange.length < 2) {
@@ -29,7 +30,7 @@ const Pagination = React.memo(({ onPageChange, totalPageCount, siblingCount = 1,
 				<div className="arrow left" />
 			</li>
 			{paginationRange.map((pageNumber, index) => {
-				if (pageNumber === DOTS) {
+				if (pageNumber === constants.DOTS) {
 					return <li key={index} className="page dots">&#8230;</li>;
 				}
 

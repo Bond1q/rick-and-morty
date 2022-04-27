@@ -35,3 +35,41 @@
 		@include cardsRows;
 	}
 }
+
+@media screen and (max-width: 500px) {
+	.charactersPage {
+		.mainTitle {
+			@include mainTitle
+		}
+
+		.menu {
+			@include flexRow();
+			margin-top: 30px;
+			padding: 0 20px;
+
+			.filters {
+
+				.title {
+
+					@include flexRow();
+					cursor: pointer;
+					position: relative;
+
+					.titleText {
+						font-size: 22px;
+						font-weight: 600;
+						letter-spacing: 0.03em;
+						position: relative;
+						margin-right: 6px;
+					}
+				}
+
+			}
+
+		}
+
+		.cards {
+			@include cardsRows;
+		}
+	}
+}

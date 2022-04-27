@@ -1,6 +1,3 @@
-import React from 'react';
-import { useNavigate } from "react-router-dom";
-
 const setParamsToUrl = (currentPage, urlGender, urlStatus, urlName) => {
 	let url = `/characters/page=${currentPage}?`
 	urlGender ? url += `gender=${urlGender}&` : url += `gender=all&`

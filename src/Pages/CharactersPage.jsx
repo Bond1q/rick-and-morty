@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import FilterContainer from '../Components/Filters/FilterContainer';
 import '../styles/charactersPage.scss'
 import { ReactComponent as Logo } from '../assets/images/sorting.svg';
@@ -12,17 +12,17 @@ import Loader from '../Components/Loader';
 import getDataFromFilters from '../assets/funcs/getDataFromFilters';
 import useDataFromUrl from '../assets/hooks/useDataFromUrl';
 import setParamsToUrl from '../assets/funcs/setParamsToUrl';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import NotFound from '../Components/NotFound';
 
 
 
 const CharactersPage = () => {
 	const dispatch = useDispatch();
 	const urlChange = useNavigate()
-
-	const [characters, filters, pages, isLoading] = useSelector(({ charactersReducer }) => {
+	const [characters, filters, pages, isLoading, isCorrectParams] = useSelector(({ charactersReducer }) => {
 		const cR = charactersReducer
-		return [cR.characters, cR.filters, cR.pages, cR.isLoading]
+		return [cR.characters, cR.filters, cR.pages, cR.isLoading, cR.isCorrectParams]
 	})
 
 	const [page, urlGender, urlStatus, urlName] = useDataFromUrl(['gender', 'status', 'name'])
@@ -33,10 +33,7 @@ const CharactersPage = () => {
 	const [currentPage, setCurrentPage] = useState(page);
 	const [searchName, setSearchName] = useState('')
 	const [isFilterClicked, setIsFilterClicked] = useState(false)
-
-
-	const url = React.useMemo(() => window.location.href, [window.location.href])
-
+	const url = useLocation().pathname
 
 	const onFilterTabToggle = (e) => {
 		preventMainFunc(e)
@@ -57,7 +54,7 @@ const CharactersPage = () => {
 	}
 
 	useEffect(() => {
-		urlChange(setParamsToUrl(currentPage, urlGender, urlStatus, urlName))
+		urlChange(setParamsToUrl(currentPage, urlGender, urlStatus, urlName), { replace: true })
 		dispatch(getCharacters(currentPage, activeGender, activeStatus, searchName))
 	}, [currentPage])
 
@@ -73,6 +70,7 @@ const CharactersPage = () => {
 
 
 	useEffect(() => {
+
 		if (urlGender !== activeGender || urlStatus !== activeStatus || urlName != '') {
 			if (urlGender !== activeGender) {
 				dispatch(setActiveCharacterFilter('gender', urlGender))
@@ -82,18 +80,21 @@ const CharactersPage = () => {
 			}
 
 			if (urlName) {
-
 				setSearchName(urlName)
 				dispatch(getCharacters(currentPage, urlGender, urlStatus, urlName))
 			} else {
 				setSearchName('')
-				dispatch(getCharacters(currentPage, urlGender, urlStatus, ''))
+				if (urlGender && urlStatus) {
+					dispatch(getCharacters(currentPage, urlGender, urlStatus, ''))
+
+				}
 			}
 
 			if (currentPage !== page) {
 				setCurrentPage(page)
 			}
 		}
+
 	}, [url])
 
 
@@ -101,7 +102,7 @@ const CharactersPage = () => {
 
 	return (
 		<>
-			{isLoading ? <Loader /> :
+			{!isCorrectParams ? <NotFound /> : isLoading ? <Loader /> :
 				<div onClick={() => setIsFilterTabActive(false)} className='charactersPage' >
 					<div className="mainTitle">All characters</div>
 					<div className="menu">

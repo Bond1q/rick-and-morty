@@ -6,13 +6,11 @@ import charactersCardsList from './../assets/funcs/charactersCardsList';
 import '../styles/singleEpisodePage.scss'
 import Loader from '../Components/Loader';
 import { useLocation } from 'react-router-dom';
-import { useCharactersCardList } from './../assets/hooks/useCharactersCardList';
+import * as constants from '../constants'
+
 const SingleEpisodePage = () => {
-	// const idFromUrl = React.useMemo(() => (+window.location.href.split("/").reverse()[0]), [window.location.href])
 	const url = useLocation().pathname
 	const [idFromUrl, setIdFromUrl] = React.useState(+(url.split("/").reverse()[0]))
-	// console.log(url.pathname);
-
 	const [episode, isLodingSeasonReducer] = useSelector(({ seasonReducer }) => {
 		return [seasonReducer.episode, seasonReducer.isLoading]
 	})
@@ -22,9 +20,9 @@ const SingleEpisodePage = () => {
 
 	const dispatch = useDispatch()
 	useEffect(() => {
-		// console.log('url hcange');
+
 		const newId = +(url.split("/").reverse()[0])
-		if (newId > 0 && newId < 52) {
+		if (newId > 0 && newId <= constants.EPISODES_COUNT) {
 
 			dispatch(getEpisode(newId))
 			setIdFromUrl(newId)
@@ -36,21 +34,15 @@ const SingleEpisodePage = () => {
 	}, [url])
 
 	useEffect(() => {
-		// console.log('www');
+
 		if (episode.characters.length > 0) {
 			dispatch(getCharactersByIds(episode.characters))
 		}
 	}, [episode.characters])
-	// console.log('rerender');
-	// console.table(episode);
+
 	const charactersToProps = charactersCardsList(characters)
 
-	// const charactersToProps = useCharactersCardList(characters)
-
-
-
 	return (
-
 		<>
 			{isLodingSeasonReducer || isLodingCharactersReducer ? <Loader /> :
 

@@ -5,11 +5,7 @@ import SingleCharacterPage from "../Pages/SingleCharacterPage";
 import SingleEpisodePage from "../Pages/SingleEpisodePage";
 
 export const routes = [
-	// {
-	// 	path: '/characters',
-	// 	exact: true,
-	// 	component: <CharactersPage />
-	// },
+
 	{
 		path: '/characters/page=:pageNum',
 		exact: true,

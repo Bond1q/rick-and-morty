@@ -1,8 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate, Router } from 'react-router-dom'
 import { routes } from './../routes/index';
-// import HomePage from './../Pages/HomePage';
-// import EpisodesPage from './../Pages/EpisodesPage';
 import Header from './Header';
 
 const AppRoutes = () => {
@@ -14,7 +12,6 @@ const AppRoutes = () => {
 				{routes.map(({ path, exact, component }) => {
 					return <Route key={path} path={path} exact={exact} element={component} />
 				})}
-				{/* <Route path='' /> */}
 				<Route
 					path="/characters"
 					exact={true}
@@ -25,7 +22,6 @@ const AppRoutes = () => {
 					element={<Navigate to="/home" />}
 				/>
 			</Routes >
-			{/* <Navigate to='home' /> */}
 		</>
 
 

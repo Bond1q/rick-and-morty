@@ -73,3 +73,17 @@
 		}
 	}
 }
+
+@media screen and (max-width: 500px) {
+	ul {
+		padding: 0;
+	}
+
+	.pagination {
+		.page {
+
+			margin: auto 5px;
+
+		}
+	}
+}

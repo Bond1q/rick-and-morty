@@ -6,6 +6,8 @@ import '../styles/singleCharacterPage.scss'
 import divideEpisodesToSeason from '../assets/funcs/divideEpisodesToSeason';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import * as constants from '../constants'
+import { onEpisodeClick } from '../assets/funcs/onEpisodeClick';
 const SingleCharacterPage = () => {
 	const urlChange = useNavigate()
 	const url = useLocation().pathname
@@ -21,33 +23,17 @@ const SingleCharacterPage = () => {
 		location
 	}
 
-	// const activeColor = setColorByStatus(status)[0]
-
 	const information = [];
 	for (const property in character) {
-		if (character[property]) {
-			information.push(<div className='informationItem' key={property}><span className='type'>{property}:</span>
-				<span className='value'>{character[property]}</span></div>)
-		} else {
-			information.push(<div className='informationItem' key={property}><span className='type'>{property}:</span>
-				<span className='value'>{'unknown'}</span></div>)
-		}
-	}
-
-	const onEpisodeClick = (episodeIndex) => {
-		// preventMainFunc(e)
-		if (!url.includes('seasons')) {
-			urlChange('/seasons/' + episodeIndex)
-		} else if (+(url.split("/").reverse()[0]) !== episodeIndex) {
-			urlChange('/seasons/' + episodeIndex)
-		}
+		information.push(<div className='informationItem' key={property}><span className='type'>{property}:</span>
+			<span className='value'>{character[property] || 'unknown'}</span></div>)
 	}
 
 	const episodes = []
 	episode.forEach((epi, index) => {
 		const [seasonIndex, episodeIndex] = divideEpisodesToSeason(+(epi.split("/").reverse()[0]))
 		episodes.push(
-			<div onClick={() => onEpisodeClick(+(epi.split("/").reverse()[0]))} key={index} className='episode'>
+			<div onClick={(e) => onEpisodeClick(+(epi.split("/").reverse()[0]), urlChange, url, e)} key={index} className='episode'>
 				<div className="seas">
 					Season: {seasonIndex}
 				</div>
@@ -58,20 +44,11 @@ const SingleCharacterPage = () => {
 				</div>
 			</div>)
 	});
-	// let seasonIndex, episodeIndex, title, elemIndexInArr = 0;
-	// episode.forEach(item => {
-	// 	[seasonIndex, episodeIndex] = divideEpisodesToSeason(+(item.split("/").reverse()[0]))
-	// 	if (seasons.filter(season => season.seasonIndex === seasonIndex).length === 0) {
-	// 		elemIndexInArr = seasons.length;
-	// 		seasons.push({ seasonIndex, episodes: [{ episodeIndex, title }] })
-	// 	} else {
-	// 		seasons[elemIndexInArr].episodes.push({ episodeIndex, title })
-	// 	}
-	// })
+
 
 
 	useEffect(() => {
-		if (idFromUrl > 0 && idFromUrl < 827) {
+		if (idFromUrl > 0 && idFromUrl <= constants.CHARACTERS_COUNT) {
 			dispatch(getSingleCharacter(idFromUrl))
 		} else {
 			dispatch(getSingleCharacter(1))

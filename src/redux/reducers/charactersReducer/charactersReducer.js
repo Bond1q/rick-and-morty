@@ -1,6 +1,6 @@
 
 // import './actionCreators'
-import { SET_CHARACTERS, SET_ACTIVE_CHARACTER_FILTER, TOGGLE_IS_CHARACTERS_REDUCER_LOADING } from './actions';
+import { SET_CHARACTERS, SET_ACTIVE_CHARACTER_FILTER, TOGGLE_IS_CHARACTERS_REDUCER_LOADING, TOGGLE_IS_CORRECT_CHARACTERS_PARAMS } from './actions';
 // import { SET_ACTIVE_CHARACTER_FILTER } from './actions';
 import { SET_SINGLE_CHARACTER } from './actions';
 
@@ -34,6 +34,7 @@ const initialState = {
 	],
 	pages: 1,
 	isLoading: true,
+	isCorrectParams: true,
 	singleCharacter: {
 		name: '',
 		status: '',
@@ -66,12 +67,12 @@ export const charactersReducer = (state = initialState, action) => {
 			return {
 				...state,
 				characters: updateCharacters,
-				pages: action.pages
+				pages: action.pages,
+				isCorrectParams: true
 			}
 
 		case SET_ACTIVE_CHARACTER_FILTER:
 			let filterBlock = action.filterBlockType.toLowerCase() === 'gender' ? state.filters.gender : state.filters.status;
-			// const 
 			let filterBlockNewItems = filterBlock.map(filter => {
 				if (filter.type === action.filter) {
 					filter.isActive = true;
@@ -80,17 +81,19 @@ export const charactersReducer = (state = initialState, action) => {
 				}
 				return filter
 			})
-			return { ...state, filters: { ...state.filters, [`${action.filterBlockType}`]: filterBlockNewItems } }
+			return { ...state, filters: { ...state.filters, [`${action.filterBlockType}`]: filterBlockNewItems }, isCorrectParams: true }
 
 		case SET_SINGLE_CHARACTER:
 			const { id, name, status, species, type, gender, image, episode } = action.character
 			const origin = action.character.origin.name
 			const location = action.character.origin.location
 			const newCharacter = { id, name, status, species, type, gender, image, episode, origin, location }
-			return { ...state, singleCharacter: newCharacter }
+			return { ...state, singleCharacter: newCharacter, isCorrectParams: true }
 
 		case TOGGLE_IS_CHARACTERS_REDUCER_LOADING:
 			return { ...state, isLoading: action.isLoading }
+		case TOGGLE_IS_CORRECT_CHARACTERS_PARAMS:
+			return { ...state, isCorrectParams: action.isCorrect }
 		default:
 			return { ...state }
 	}

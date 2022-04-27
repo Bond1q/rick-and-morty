@@ -5,8 +5,8 @@ import cn from 'classnames';
 import '../../styles/filter/filterContainer.scss'
 import { preventMainFunc } from './../../assets/funcs/preventMainFunc';
 const FilterContainer = React.memo(({ filters, isFilterTabActive, setIsFilterTabActive, onFilterClicked, setActiveFilterChanged }) => {
-	const [isBtnActive, setIsBtnActive] = React.useState(false)
-	const [notVisible, setNotVisible] = React.useState(true)
+	const [isBtnActive, setIsBtnActive] = useState(false)
+	const [notVisible, setNotVisible] = useState(true)
 	const blocks = filters.map((block, index) => {
 		return <FilterBlock
 			key={index}
@@ -25,11 +25,10 @@ const FilterContainer = React.memo(({ filters, isFilterTabActive, setIsFilterTab
 		setIsFilterTabActive(false)
 
 	}
-	React.useEffect(() => {
-		setTimeout(() => {
-			setNotVisible(false)
-		}, 500);
-	})
+	setTimeout(() => {
+		setNotVisible(false)
+	}, 500)
+
 	return (
 		<div onClick={preventMainFunc} className={cn('filterContainer', { isFilterVisible: isFilterTabActive }, { notVisib: notVisible })}>
 			<div>{blocks}</div>

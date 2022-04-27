@@ -71,3 +71,13 @@ export const requestEpisode = async (episodeId) => {
 
 	}
 }
+
+export const requestCharactersCount = async () => {
+	try {
+		const res = await axios.get("https://rickandmortyapi.com/api/character")
+		return res.data.info.count;
+	} catch (error) {
+		console.error(error, "Function: requestCharactersCount")
+
+	}
+}

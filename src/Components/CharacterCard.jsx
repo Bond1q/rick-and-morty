@@ -22,7 +22,7 @@ const CharacterCard = React.memo(({ name, status, species, origin, gender, seaso
 	return (
 		<div onClick={setCharacterIdInUrl} className='сharacterCard'>
 			<div className="side1">
-				<img src={img} />
+				<img alt={name || 'character'} src={img} />
 			</div>
 			<div className="side2">
 				<div className="nameStatus">

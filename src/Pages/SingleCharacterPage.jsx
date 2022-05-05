@@ -60,7 +60,7 @@ const SingleCharacterPage = () => {
 			{isLoading ? <Loader /> :
 				<div className='characterPage'>
 					<div className="information">
-						<div className="side1"><img src={image} alt="" /></div>
+						<div className="side1"><img alt={name || 'character'} src={image} /></div>
 						<div className="side2">
 							{information}
 						</div>

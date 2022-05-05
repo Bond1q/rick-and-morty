@@ -87,6 +87,7 @@
 
 		.title {
 			font-size: 30px;
+			width: 100%;
 		}
 
 		.blockItems {
@@ -109,11 +110,12 @@
 				.index {
 					font-size: 18px;
 					margin-right: 10px;
-					width: 45px;
+					width: 50px;
 				}
 
 				.episodeTitle {
 					font-size: 18px;
+					width: calc(100% - 50px);
 				}
 
 			}

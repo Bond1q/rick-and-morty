@@ -9,7 +9,8 @@ const Loader = () => {
 	const random = Math.floor(Math.random() * images.length);
 	return (
 		<div className='loader'>
-			<div className={cn({ animationBlock1: random === 0 }, { animationBlock2: random === 1 })}><img src={images[random]} alt="" /></div>
+			<div className={cn({ animationBlock1: random === 0 }, { animationBlock2: random === 1 })}>
+				<img src={images[random]} alt={"Loading..."} /></div>
 		</div>
 	);
 };

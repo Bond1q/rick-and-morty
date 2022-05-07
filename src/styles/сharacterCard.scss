@@ -39,6 +39,7 @@
 				font-weight: 900;
 				letter-spacing: 0.03em;
 				line-height: 23px;
+				transition: 0.1s;
 				margin-bottom: 5px;
 			}
 
@@ -83,8 +84,17 @@
 
 			}
 
+			.episodTitle {
+				transition: 0.1s;
+
+				span {
+					transition: inherit;
+				}
+			}
+
 			.episodTitle:hover {
 				cursor: pointer;
+
 
 				span {
 					color: $activeLinkColor;
@@ -95,6 +105,7 @@
 				cursor: default;
 
 				span {
+
 					color: $textColor;
 				}
 			}

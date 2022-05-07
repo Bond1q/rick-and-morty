@@ -3,7 +3,6 @@
 
 
 .filterContainer {
-	animation: upOut 300ms ease-in-out forwards;
 	z-index: 5;
 	border-radius: 7px;
 	box-shadow: 0px 2px 5px 2px #1d1e20;
@@ -11,10 +10,15 @@
 	background: $textColor;
 	width: 200px;
 	left: calc(50% - 296px);
-	perspective: 1000px;
 	padding: 10px 15px;
 	height: 240px;
 	overflow-y: scroll;
+	opacity: 0;
+	transition: 0.3s;
+	display: block;
+	transform: translateY(-10px);
+	pointer-events: none;
+	cursor: default;
 
 	@media screen and (max-width: 500px) {
 		left: 10px;
@@ -73,47 +77,10 @@
 	}
 }
 
-.isFilterVisible {
-	display: block;
-	animation: downOut 300ms ease-in-out forwards;
+.active {
+	transform: translateY(10px);
+	pointer-events: all;
+	cursor: pointer;
+	opacity: 1;
 
-}
-
-@keyframes upOut {
-	0% {
-		opacity: 1;
-	}
-
-	70% {
-		opacity: 0;
-
-	}
-
-	100% {
-		opacity: 0;
-		transform: transLateY(-15px);
-		visibility: hidden;
-	}
-}
-
-
-
-
-@keyframes downOut {
-	0% {
-		transform: transLateY(-15px);
-		opacity: 0;
-	}
-
-
-
-	100% {
-		transform: transLateY(0px);
-		opacity: 1;
-
-	}
-}
-
-.notVisib {
-	visibility: hidden;
 }

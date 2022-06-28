@@ -12,13 +12,15 @@ import Loader from '../Components/Loader';
 import getDataFromFilters from '../assets/funcs/getDataFromFilters';
 import useDataFromUrl from '../assets/hooks/useDataFromUrl';
 import NotFound from '../Components/NotFound';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { useSearchParams } from "react-router-dom";
-
+import setParamsToUrl from "../assets/funcs/setParamsToUrl";
+import { useParams } from 'react-router';
 
 
 const CharactersPage = () => {
-	const url = useLocation().pathname
+	const url = useLocation()
+	const urlCheck = useLocation()
 	const dispatch = useDispatch();
 	const [characters, filters, pages, isLoading, isCorrectParams] = useSelector(({ charactersReducer }) => {
 		const cR = charactersReducer
@@ -26,11 +28,29 @@ const CharactersPage = () => {
 	})
 	const charactersToProps = charactersCardsList(characters)
 
+	const [currentPage, setCurrentPage] = useState(+useParams().pageNum);
+	const params = +useParams().pageNum
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [gender, setGender] = useState(searchParams.get('gender') || '')
+	// const gender = searchParams.get('gender') || ''
+	const status = searchParams.get('status') || ''
+	const name = searchParams.get('name') || ''
+	const navigate = useNavigate()
+	const changeUrl = (pages, gender, status, name) => {
+		navigate(setParamsToUrl(pages, gender, status, name), { replace: true })
+	}
+	useEffect(() => {
 
-	const { page, gender, status, name, changeUrl, changeSearchParams } = useDataFromUrl()
+		setCurrentPage(params)
+	}, [url.pathname])
+
+	useEffect(() => {
+		// console.log('worls');
+		setGender(searchParams.get('gender'))
+	}, [url.search])
+
 	const [filtersToProps, activeGender, activeStatus] = getDataFromFilters(filters)
 	const [isFilterTabActive, setIsFilterTabActive] = useState(false)
-	const [currentPage, setCurrentPage] = useState(+page);
 	const [searchName, setSearchName] = useState('')
 	const [isFilterClicked, setIsFilterClicked] = useState(false)
 
@@ -69,8 +89,10 @@ const CharactersPage = () => {
 
 
 	useEffect(() => {
+		console.log(gender, activeGender);
 		if (gender !== activeGender) {
 			dispatch(setActiveCharacterFilter('gender', gender))
+			dispatch(getCharacters(currentPage, gender, status, name))
 		}
 		if (status !== activeStatus) {
 			dispatch(setActiveCharacterFilter('status', status))

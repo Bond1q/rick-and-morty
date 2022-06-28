@@ -1,19 +1,23 @@
-import { useMemo } from "react";
+import { useMemo, useEffect, useState } from "react";
+import { useParams, useNavigate, useLocation } from "react-router";
+import { useSearchParams } from "react-router-dom";
+import setParamsToUrl from "../funcs/setParamsToUrl";
 
-const useDataFromUrl = (urlParams = []) => {
-	const href = window.location.href
-	const url = new URL(href)
-	const dataFromUrl = useMemo(() => {
-		const returnData = []
-		returnData.push(+(url.pathname.split("=")[1]) || 1)
-		if (urlParams.length !== 0) {
-			urlParams.forEach(param => {
-				returnData.push(url.searchParams.get(param))
-			})
-		}
-		return returnData
-	}, [href])
-	return dataFromUrl
+const useDataFromUrl = () => {
+	// const url = useLocation().pathname
+	// console.log(window.location.href);
+	const { pageNum: page } = useParams()
+	// const [page, setPage] = useState(useParams().pageNum)
+	const [searchParams, setSearchParams] = useSearchParams();
+	const gender = searchParams.get('gender') || ''
+	const status = searchParams.get('status') || ''
+	const name = searchParams.get('name') || ''
+	const navigate = useNavigate()
+	const changeUrl = (page, gender, status, name) => {
+		navigate(setParamsToUrl(page, gender, status, name), { replace: true })
+	}
+
+	return { page, gender, status, name, changeUrl }
 }
 
 export default useDataFromUrl

@@ -11,29 +11,28 @@ import charactersCardsList from '../assets/funcs/charactersCardsList';
 import Loader from '../Components/Loader';
 import getDataFromFilters from '../assets/funcs/getDataFromFilters';
 import useDataFromUrl from '../assets/hooks/useDataFromUrl';
-import setParamsToUrl from '../assets/funcs/setParamsToUrl';
-import { useNavigate, useLocation } from "react-router-dom";
 import NotFound from '../Components/NotFound';
+import { useLocation } from 'react-router';
+import { useSearchParams } from "react-router-dom";
 
 
 
 const CharactersPage = () => {
+	const url = useLocation().pathname
 	const dispatch = useDispatch();
-	const urlChange = useNavigate()
 	const [characters, filters, pages, isLoading, isCorrectParams] = useSelector(({ charactersReducer }) => {
 		const cR = charactersReducer
 		return [cR.characters, cR.filters, cR.pages, cR.isLoading, cR.isCorrectParams]
 	})
-
-	const [page, urlGender, urlStatus, urlName] = useDataFromUrl(['gender', 'status', 'name'])
 	const charactersToProps = charactersCardsList(characters)
-	const [filtersToProps, activeGender, activeStatus] = getDataFromFilters(filters)
 
+
+	const { page, gender, status, name, changeUrl, changeSearchParams } = useDataFromUrl()
+	const [filtersToProps, activeGender, activeStatus] = getDataFromFilters(filters)
 	const [isFilterTabActive, setIsFilterTabActive] = useState(false)
-	const [currentPage, setCurrentPage] = useState(page);
+	const [currentPage, setCurrentPage] = useState(+page);
 	const [searchName, setSearchName] = useState('')
 	const [isFilterClicked, setIsFilterClicked] = useState(false)
-	const url = useLocation().pathname
 
 	const onFilterTabToggle = (e) => {
 		preventMainFunc(e)
@@ -54,51 +53,36 @@ const CharactersPage = () => {
 	}
 
 	useEffect(() => {
-		urlChange(setParamsToUrl(currentPage, urlGender, urlStatus, urlName), { replace: true })
-		dispatch(getCharacters(currentPage, activeGender, activeStatus, searchName))
+		changeUrl(currentPage, gender, status, name)
+		dispatch(getCharacters(currentPage, gender, status, name))
+
 	}, [currentPage])
 
 	useEffect(() => {
 		if (isFilterClicked) {
 			setCurrentPage(1)
 			dispatch(getCharacters(1, activeGender, activeStatus, searchName))
-			urlChange(setParamsToUrl(1, activeGender, activeStatus, searchName))
+			changeUrl(1, activeGender, activeStatus, searchName)
 			setIsFilterClicked(false)
 		}
-
 	}, [isFilterClicked])
 
 
 	useEffect(() => {
-
-		if (urlGender !== activeGender || urlStatus !== activeStatus || urlName != '') {
-			if (urlGender !== activeGender) {
-				dispatch(setActiveCharacterFilter('gender', urlGender))
-			}
-			if (urlStatus !== activeStatus) {
-				dispatch(setActiveCharacterFilter('status', urlStatus))
-			}
-
-			if (urlName) {
-				setSearchName(urlName)
-				dispatch(getCharacters(currentPage, urlGender, urlStatus, urlName))
-			} else {
-				setSearchName('')
-				if (urlGender && urlStatus) {
-					dispatch(getCharacters(currentPage, urlGender, urlStatus, ''))
-
-				}
-			}
-
-			if (currentPage !== page) {
-				setCurrentPage(page)
-			}
+		if (gender !== activeGender) {
+			dispatch(setActiveCharacterFilter('gender', gender))
+		}
+		if (status !== activeStatus) {
+			dispatch(setActiveCharacterFilter('status', status))
+		}
+		if (gender !== activeGender) {
+			dispatch(setActiveCharacterFilter('gender', gender))
+		}
+		if (name) {
+			setSearchName(name)
 		}
 
-	}, [url])
-
-
-
+	}, [gender, name, status])
 
 	return (
 		<>

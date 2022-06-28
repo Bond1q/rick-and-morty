@@ -10,49 +10,40 @@ import Pagination from '../Components/Pagination';
 import charactersCardsList from '../assets/funcs/charactersCardsList';
 import Loader from '../Components/Loader';
 import getDataFromFilters from '../assets/funcs/getDataFromFilters';
-import useDataFromUrl from '../assets/hooks/useDataFromUrl';
 import NotFound from '../Components/NotFound';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { useSearchParams } from "react-router-dom";
 import setParamsToUrl from "../assets/funcs/setParamsToUrl";
-import { useParams } from 'react-router';
-
 
 const CharactersPage = () => {
 	const url = useLocation()
-	const urlCheck = useLocation()
 	const dispatch = useDispatch();
+	const navigate = useNavigate()
 	const [characters, filters, pages, isLoading, isCorrectParams] = useSelector(({ charactersReducer }) => {
 		const cR = charactersReducer
 		return [cR.characters, cR.filters, cR.pages, cR.isLoading, cR.isCorrectParams]
 	})
+
 	const charactersToProps = charactersCardsList(characters)
 
 	const [currentPage, setCurrentPage] = useState(+useParams().pageNum);
 	const params = +useParams().pageNum
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [gender, setGender] = useState(searchParams.get('gender') || '')
-	// const gender = searchParams.get('gender') || ''
-	const status = searchParams.get('status') || ''
+	const gender = searchParams.get('gender') || ''
+	const status = searchParams.get('status') || 'all'
 	const name = searchParams.get('name') || ''
-	const navigate = useNavigate()
-	const changeUrl = (pages, gender, status, name) => {
-		navigate(setParamsToUrl(pages, gender, status, name), { replace: true })
-	}
-	useEffect(() => {
-
-		setCurrentPage(params)
-	}, [url.pathname])
-
-	useEffect(() => {
-		// console.log('worls');
-		setGender(searchParams.get('gender'))
-	}, [url.search])
-
 	const [filtersToProps, activeGender, activeStatus] = getDataFromFilters(filters)
 	const [isFilterTabActive, setIsFilterTabActive] = useState(false)
 	const [searchName, setSearchName] = useState('')
 	const [isFilterClicked, setIsFilterClicked] = useState(false)
+
+	const changeUrl = (pages, gender, status, name) => {
+		navigate(setParamsToUrl(pages, gender, status, name), { replace: true })
+	}
+	useEffect(() => {
+		setCurrentPage(params)
+	}, [url.pathname])
+
 
 	const onFilterTabToggle = (e) => {
 		preventMainFunc(e)
@@ -75,8 +66,8 @@ const CharactersPage = () => {
 	useEffect(() => {
 		changeUrl(currentPage, gender, status, name)
 		dispatch(getCharacters(currentPage, gender, status, name))
-
 	}, [currentPage])
+
 
 	useEffect(() => {
 		if (isFilterClicked) {
@@ -89,21 +80,22 @@ const CharactersPage = () => {
 
 
 	useEffect(() => {
-		console.log(gender, activeGender);
 		if (gender !== activeGender) {
 			dispatch(setActiveCharacterFilter('gender', gender))
 			dispatch(getCharacters(currentPage, gender, status, name))
 		}
 		if (status !== activeStatus) {
 			dispatch(setActiveCharacterFilter('status', status))
+			dispatch(getCharacters(currentPage, gender, status, name))
 		}
 		if (gender !== activeGender) {
 			dispatch(setActiveCharacterFilter('gender', gender))
+			dispatch(getCharacters(currentPage, gender, status, name))
 		}
 		if (name) {
 			setSearchName(name)
+			dispatch(getCharacters(currentPage, gender, status, name))
 		}
-
 	}, [gender, name, status])
 
 	return (
@@ -128,14 +120,14 @@ const CharactersPage = () => {
 								/>
 							</div>
 						</div>
-						<div>
-							<Search
-								searchDefaultValue={searchName}
-								onFilterClicked={setIsFilterClicked}
-								setSearchName={setSearchName}
-								placeholderText='Name:' />
-						</div>
+						<Search
+							searchDefaultValue={searchName}
+							onFilterClicked={setIsFilterClicked}
+							setSearchName={setSearchName}
+							placeholderText='Name:' />
+
 					</div>
+
 					<div className="cards">
 						{charactersToProps}
 					</div>

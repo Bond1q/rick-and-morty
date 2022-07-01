@@ -15,6 +15,7 @@ import { useLocation, useNavigate, useParams } from 'react-router';
 import { useSearchParams } from "react-router-dom";
 import setParamsToUrl from "../assets/funcs/setParamsToUrl";
 import CharactersFilterController from '../Components/CharactersFilterController';
+import useDataFromUrl from '../assets/hooks/useDataFromUrl';
 
 const CharactersPage = () => {
 	const url = useLocation()
@@ -26,25 +27,20 @@ const CharactersPage = () => {
 	})
 
 	const charactersToProps = charactersCardsList(characters)
-
 	const [currentPage, setCurrentPage] = useState(+useParams().pageNum);
-	const params = +useParams().pageNum
-	const [searchParams, setSearchParams] = useSearchParams();
-	const gender = searchParams.get('gender') || ''
-	const status = searchParams.get('status') || 'all'
-	const name = searchParams.get('name') || ''
-
+	const { page, gender, status, chacterName } = useDataFromUrl()
 	const [isFilterTabActive, setIsFilterTabActive] = useState(false)
 	const [isFilterClicked, setIsFilterClicked] = useState(false)
-
 	const [searchName, setSearchName] = useState('')
-
 	const changeUrl = (pages, gender, status, name) => {
 		navigate(setParamsToUrl(pages, gender, status, name), { replace: true })
 	}
 	useEffect(() => {
-		setCurrentPage(params)
-	}, [url.pathname])
+		if (page !== currentPage) {
+			setCurrentPage(page)
+		}
+
+	}, [page])
 
 
 	const onFilterTabToggle = (e) => {
@@ -52,14 +48,9 @@ const CharactersPage = () => {
 		setIsFilterTabActive(prev => !prev)
 	}
 	useEffect(() => {
-		changeUrl(currentPage, gender, status, name)
-		dispatch(getCharacters(currentPage, gender, status, name))
+		changeUrl(currentPage, gender, status, chacterName)
+		dispatch(getCharacters(currentPage, gender, status, chacterName))
 	}, [currentPage])
-
-
-
-
-
 
 	return (
 		<>
@@ -79,7 +70,7 @@ const CharactersPage = () => {
 									isFilterTabActive={isFilterTabActive}
 									setIsFilterTabActive={setIsFilterTabActive}
 									gender={gender}
-									name={name}
+									name={chacterName}
 									status={status}
 									currentPage={currentPage}
 									changeUrl={changeUrl}

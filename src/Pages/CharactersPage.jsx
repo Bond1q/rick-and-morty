@@ -14,6 +14,7 @@ import NotFound from '../Components/NotFound';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import { useSearchParams } from "react-router-dom";
 import setParamsToUrl from "../assets/funcs/setParamsToUrl";
+import CharactersFilterController from '../Components/CharactersFilterController';
 
 const CharactersPage = () => {
 	const url = useLocation()
@@ -32,10 +33,11 @@ const CharactersPage = () => {
 	const gender = searchParams.get('gender') || ''
 	const status = searchParams.get('status') || 'all'
 	const name = searchParams.get('name') || ''
-	const [filtersToProps, activeGender, activeStatus] = getDataFromFilters(filters)
+
 	const [isFilterTabActive, setIsFilterTabActive] = useState(false)
-	const [searchName, setSearchName] = useState('')
 	const [isFilterClicked, setIsFilterClicked] = useState(false)
+
+	const [searchName, setSearchName] = useState('')
 
 	const changeUrl = (pages, gender, status, name) => {
 		navigate(setParamsToUrl(pages, gender, status, name), { replace: true })
@@ -49,54 +51,15 @@ const CharactersPage = () => {
 		preventMainFunc(e)
 		setIsFilterTabActive(prev => !prev)
 	}
-
-	const setActiveFilterChanged = (filterBlockType, filter) => {
-		let isDispatch = true
-		if (filterBlockType === 'gender') {
-			isDispatch = activeGender !== filter
-		} else {
-			isDispatch = activeStatus !== filter
-		}
-		if (isDispatch) {
-
-			dispatch(setActiveCharacterFilter(filterBlockType, filter))
-		}
-	}
-
 	useEffect(() => {
 		changeUrl(currentPage, gender, status, name)
 		dispatch(getCharacters(currentPage, gender, status, name))
 	}, [currentPage])
 
 
-	useEffect(() => {
-		if (isFilterClicked) {
-			setCurrentPage(1)
-			dispatch(getCharacters(1, activeGender, activeStatus, searchName))
-			changeUrl(1, activeGender, activeStatus, searchName)
-			setIsFilterClicked(false)
-		}
-	}, [isFilterClicked])
 
 
-	useEffect(() => {
-		if (gender !== activeGender) {
-			dispatch(setActiveCharacterFilter('gender', gender))
-			dispatch(getCharacters(currentPage, gender, status, name))
-		}
-		if (status !== activeStatus) {
-			dispatch(setActiveCharacterFilter('status', status))
-			dispatch(getCharacters(currentPage, gender, status, name))
-		}
-		if (gender !== activeGender) {
-			dispatch(setActiveCharacterFilter('gender', gender))
-			dispatch(getCharacters(currentPage, gender, status, name))
-		}
-		if (name) {
-			setSearchName(name)
-			dispatch(getCharacters(currentPage, gender, status, name))
-		}
-	}, [gender, name, status])
+
 
 	return (
 		<>
@@ -111,12 +74,20 @@ const CharactersPage = () => {
 							</div>
 
 							<div className="allFilters">
-								<FilterContainer
+								<CharactersFilterController
+									filters={filters}
 									isFilterTabActive={isFilterTabActive}
 									setIsFilterTabActive={setIsFilterTabActive}
-									filters={filtersToProps}
-									setActiveFilterChanged={setActiveFilterChanged}
-									onFilterClicked={setIsFilterClicked}
+									gender={gender}
+									name={name}
+									status={status}
+									currentPage={currentPage}
+									changeUrl={changeUrl}
+									searchName={searchName}
+									setCurrentPage={setCurrentPage}
+									setSearchName={setSearchName}
+									isFilterClicked={isFilterClicked}
+									setIsFilterClicked={setIsFilterClicked}
 								/>
 							</div>
 						</div>

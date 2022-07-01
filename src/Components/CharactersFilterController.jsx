@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import FilterContainer from './Filters/FilterContainer';
-import { preventMainFunc } from '../assets/funcs/preventMainFunc';
 import propTypes from 'prop-types';
 import getDataFromFilters from './../assets/funcs/getDataFromFilters';
 import { setActiveCharacterFilter, getCharacters } from '../redux/reducers/charactersReducer/actionCreators';
-const CharactersFilterController = ({ filters, isFilterTabActive,
-	setIsFilterTabActive, gender, name, status,
-	searchName, currentPage, changeUrl,
-	setCurrentPage, setSearchName, setIsFilterClicked, isFilterClicked
+import useDataFromUrl from '../assets/hooks/useDataFromUrl';
+
+const CharactersFilterController = React.memo(({ filters, isFilterTabActive,
+	setIsFilterTabActive,
+	searchName, searchParamsChanges,
+	setCurrentPage, setIsFilterClicked, isFilterClicked
 }) => {
 	const dispatch = useDispatch();
 
-
-
+	const { gender, status, characterName, changeUrl } = useDataFromUrl()
 	const [filtersToProps, activeGender, activeStatus] = getDataFromFilters(filters)
 
 	const setActiveFilterChanged = (filterBlockType, filter) => {
@@ -24,29 +24,13 @@ const CharactersFilterController = ({ filters, isFilterTabActive,
 			isDispatch = activeStatus !== filter
 		}
 		if (isDispatch) {
-
 			dispatch(setActiveCharacterFilter(filterBlockType, filter))
 		}
 	}
 
 	useEffect(() => {
-		if (gender !== activeGender) {
-			dispatch(setActiveCharacterFilter('gender', gender))
-			dispatch(getCharacters(currentPage, gender, status, name))
-		}
-		if (status !== activeStatus) {
-			dispatch(setActiveCharacterFilter('status', status))
-			dispatch(getCharacters(currentPage, gender, status, name))
-		}
-		if (gender !== activeGender) {
-			dispatch(setActiveCharacterFilter('gender', gender))
-			dispatch(getCharacters(currentPage, gender, status, name))
-		}
-		if (name) {
-			setSearchName(name)
-			dispatch(getCharacters(currentPage, gender, status, name))
-		}
-	}, [gender, name, status])
+		searchParamsChanges(activeGender, activeStatus, characterName)
+	}, [gender, characterName, status])
 
 	useEffect(() => {
 		if (isFilterClicked) {
@@ -56,6 +40,7 @@ const CharactersFilterController = ({ filters, isFilterTabActive,
 			setIsFilterClicked(false)
 		}
 	}, [isFilterClicked])
+
 	return (
 		<>
 			<FilterContainer
@@ -67,15 +52,23 @@ const CharactersFilterController = ({ filters, isFilterTabActive,
 			/>
 		</>
 	);
-};
-// Search.propTypes = {
-// 	placeholderText: propTypes.string,
-// 	searchDefaultValue: propTypes.string,
-// 	setSearchName: propTypes.func,
-// 	onFilterClicked: propTypes.func
+});
 
-
-// }
+CharactersFilterController.propTypes = {
+	filters: propTypes.shape({
+		gender: propTypes.arrayOf(propTypes.shape({
+			type: propTypes.string,
+			isActive: propTypes.bool
+		}))
+	}),
+	isFilterTabActive: propTypes.bool,
+	isFilterClicked: propTypes.bool,
+	setIsFilterTabActive: propTypes.func,
+	searchParamsChanges: propTypes.func,
+	setCurrentPage: propTypes.func,
+	setIsFilterClicked: propTypes.func,
+	searchName: propTypes.string,
+}
 
 
 export default CharactersFilterController;
